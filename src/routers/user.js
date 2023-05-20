@@ -7,12 +7,12 @@ const auth = require('../middleware/auth')
 
 // // GET METHODS
 // SIGN UP
-router.get('/signup', (req, res) => {
+router.get('users/signup', (req, res) => {
   res.render('signup')
 })
 
 // LOG IN
-router.get('', (req, res) => {
+router.get('/', (req, res) => {
   res.render('index')
 })
 
@@ -24,7 +24,7 @@ router.get('/users/me', auth, async (req, res) => {
 // POST METHODS
 
 // SIGN UP
-router.post('/signup', async (req, res) => {
+router.post('users/signup', async (req, res) => {
   const user = new User(req.body)
   // req.body -- JSON data coming from postman.
   try {
@@ -37,7 +37,7 @@ router.post('/signup', async (req, res) => {
 }) // works
 
 // LOG IN PAGE
-router.post('', async (req, res) => {
+router.post('/', async (req, res) => {
   const hash = req.body
   try {
     const user = await User.findByCredentials(hash.email, hash.password)
@@ -46,42 +46,70 @@ router.post('', async (req, res) => {
   } catch (e) {
     res.status(400).send(e)
   }
-})
+}) // works
 
 // LOG OUT PAGE
 
+router.post('/users/logout', auth, async (req, res) => {
+  try {
+    const user = req.user.tokens = req.user.tokens.filter((token) => {
+      return token.token !== req.token
+      // deleting that particular token
+    })
+
+    await req.user.save()
+    res.status(200).send(req.user)
+  } catch (e) {
+    res.status(400).send(e)
+  }
+}) // works
 
 // LOG OUT FROM ALL DEVICES.
 
+router.post('/users/logoutAll', auth, async (req, res) => {
+  try {
+    req.user.tokens = []
+    await req.user.save()
+    res.status(200).send(req.user)
+  } catch (e) {
+    res.status(400).send(e)
+  }
+})
+
 // UPDATE 
-router.patch('/users/me', async (req, res) => {
+router.patch('/users/me', auth, async (req, res) => {
   const updates = Object.keys(req.body)
-  // const allowedUpdates = ['firstName', 'surname', 'email', 'password']
+  // console.log(updates)
+  const allowedUpdates = ['firstName', 'surname', 'email', 'password']
 
-  // const isValidOperation = updates.every((update) => {
-  //   return allowedUpdates.includes(updates)
-  // })
+  const isValidOperation = updates.every((update) => {
+    return allowedUpdates.includes(update)
+  })
 
-  // if (!isValidOperation)
-  //   return res.status(400).send({ error: 'Invalid Updates!' })
+  if (!isValidOperation)
+    return res.status(400).send({ error: 'Invalid Updates!' })
 
   try {
-    const _id = req.body.id
-    const user = await User.findByIdAndUpdate(_id, req.body, { new: true, runValidators: true })
-    res.status(200).send(user)
+    // const _id = req.body.id
+    // const user = await User.findByIdAndUpdate(_id, req.body, { new: true, runValidators: true })
+    updates.forEach(update => req.user[update] = req.body[update])
+    await req.user.save()
+    res.status(200).send(req.user)
 
   } catch (e) {
     res.status(400).send(e)
   }
 })
 
-router.delete('/users/me', async (req, res) => {
+router.delete('/users/me', auth, async (req, res) => {
   try {
-    const _id = req.body.id
-    const user = await User.findByIdAndDelete({ _id: _id })
-    res.status(200).send(user)
+    const user = req.user
+    console.log(user)
+    await user.deleteOne()
+
+    res.send(user)
   } catch (e) {
-    res.status(400).send(e)
+    res.status(500).send(e)
   }
 })
 

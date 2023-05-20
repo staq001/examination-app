@@ -31,14 +31,13 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    lowercase: true,
-    minlength: [7, `value must have a minimum length of`],
+    trim: true,
+    minlength: 7,
     validate(value) {
       if (value.toLowerCase().includes('password')) {
         throw new Error('password contains the word "password"')
       }
-    },
-    trim: true
+    }
   },
   tokens: [{
     token: {
@@ -56,6 +55,7 @@ userSchema.methods.toJSON = function () {
   const user = this
   const userObject = user.toObject() // mongoose function
 
+  delete userObject.firstName
   delete userObject.password
   delete userObject.tokens
   delete userObject.avatar
@@ -73,15 +73,18 @@ userSchema.methods.generateAuthToken = async function () {
   return token
 }
 
-userSchema.statics.findByCredentials = async function findByCredentials(email, password) {
+userSchema.statics.findByCredentials = async function findByCredentials(email, passwordd) {
   const user = await User.findOne({ email })
   if (!user) {
     throw new Error('Unable to log in')
   }
-  const isValid = await bcrypt.compare(password, user.password)
-  if (!isValid) {
+
+  const isMatch = await bcrypt.compare(passwordd, user.password)
+  // console.log(isMatch)
+  if (!isMatch) {
     throw new Error('Unable to log in')
   }
+
   return user
 }
 
