@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const Test = require('./test')
 // const auth = require('../middleware/auth')
 
 
@@ -48,14 +49,22 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: Buffer
   }
+}, {
+  timestamps: true
 })
 
+// creating a virtual field/object
+userSchema.virtual('tests', {
+  ref: 'Test',
+  localField: '_id',
+  foreignField: 'owner'
+})
 
 userSchema.methods.toJSON = function () {
   const user = this
   const userObject = user.toObject() // mongoose function
 
-  delete userObject.firstName
+  // delete userObject.firstName
   delete userObject.password
   delete userObject.tokens
   delete userObject.avatar
@@ -90,15 +99,22 @@ userSchema.statics.findByCredentials = async function findByCredentials(email, p
 
 userSchema.pre('save', async function (next) {
   const user = this
-
   if (user.isModified('password')) {
     user.password = await bcrypt.hash(user.password, 8)
   }
   next()
-}) // works
+})
+
+
+userSchema.post("remove", async function (next) {
+  const user = this
+  await Test.deleteMany({ owner: user._id })
+  // next()
+})
 
 
 
+const User = mongoose.model('User', userSchema)
 // const me = new User({
 //   firstName: 'Omotola',
 //   surname: "Oyeneyin",
@@ -111,6 +127,5 @@ userSchema.pre('save', async function (next) {
 // }).catch((error) => {
 //   'Error!', console.log(error)
 // })
-const User = mongoose.model('User', userSchema)
 
 module.exports = User

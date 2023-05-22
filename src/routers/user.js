@@ -24,7 +24,7 @@ router.get('/users/me', auth, async (req, res) => {
 // POST METHODS
 
 // SIGN UP
-router.post('users/signup', async (req, res) => {
+router.post('/users/signup', async (req, res) => {
   const user = new User(req.body)
   // req.body -- JSON data coming from postman.
   try {
@@ -34,7 +34,7 @@ router.post('users/signup', async (req, res) => {
   } catch (e) {
     res.status(400).send(e)
   }
-}) // works
+})
 
 // LOG IN PAGE
 router.post('/', async (req, res) => {
@@ -75,6 +75,7 @@ router.post('/users/logoutAll', auth, async (req, res) => {
     res.status(400).send(e)
   }
 })
+// __________________________________________________________________________
 
 // UPDATE 
 router.patch('/users/me', auth, async (req, res) => {
@@ -101,13 +102,11 @@ router.patch('/users/me', auth, async (req, res) => {
   }
 })
 
+// DELETE USER
 router.delete('/users/me', auth, async (req, res) => {
   try {
-    const user = req.user
-    console.log(user)
-    await user.deleteOne()
-
-    res.send(user)
+    await req.user.remove()
+    res.send(req.user)
   } catch (e) {
     res.status(500).send(e)
   }

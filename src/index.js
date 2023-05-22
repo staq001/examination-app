@@ -3,6 +3,7 @@ require('./db/mongoose')
 const path = require('path')
 const hbs = require('hbs')
 const userRouter = require('./routers/user.js')
+const testRouter = require('./routers/test.js')
 
 
 const app = express()
@@ -26,6 +27,7 @@ app.use(express.static(publicDirectoryPath))
 
 app.use(express.json())
 app.use(userRouter)
+app.use(testRouter)
 
 app.listen(port, () => {
   console.log(`Server is up on port ${port}`)
