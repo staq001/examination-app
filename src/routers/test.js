@@ -23,9 +23,6 @@ router.get('/tests/:id', auth, async (req, res) => {
   try {
     const _id = req.params.id
     const test = await Test.findOne({ _id, owner: req.user._id })
-    if (!test) {
-      res.status(400).send({ error: 'Test doesn"t exist!' })
-    }
     res.status(200).send(test)
   } catch (e) {
     res.status(400).send(e)
@@ -51,7 +48,6 @@ router.get('/tests/fth/:header/', auth, async (req, res) => {
 // create a test
 router.post('/tests/set', auth, async (req, res) => {
   const test = new Test({ ...req.body, owner: req.user._id })
-
   try {
     await test.save()
     res.status(201).send(test)
@@ -66,7 +62,7 @@ router.post('/tests/set', auth, async (req, res) => {
 router.patch('/tests/:id', auth, async (req, res) => {
   const _id = req.params.id
   const updates = Object.keys(req.body)
-  const allowedUpdates = ['question', 'optionA', 'optionB', 'optionC', 'optionD', "answer"]
+  const allowedUpdates = ['question', 'text', 'optionA', 'optionB', 'optionC', 'optionD', "answer"]
 
   const isValidOperation = updates.every((update) => {
     return allowedUpdates.includes(update)
@@ -80,15 +76,15 @@ router.patch('/tests/:id', auth, async (req, res) => {
     const test = await Test.findOne({ _id, owner: req.user._id })
 
     if (!test) {
-      return res.status(404).send({ error: 'User not found!' })
+      return res.status(404).send({ error: "Test not found!" })
     }
-
     updates.forEach(update => test[update] = req.body[update])
     await test.save()
     res.status(200).send(test)
   } catch (e) {
     res.status(400).send(e)
   }
+
 })
 
 

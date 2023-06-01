@@ -9,36 +9,40 @@ const testSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  question: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  optionA: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  optionB: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  optionC: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  optionD: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  answer: {
-    type: String,
-    required: true,
-    trim: true
-  },
+  question: [{
+    text: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    options: [{
+      optionA: {
+        type: String,
+        required: true,
+        trim: true
+      },
+      optionB: {
+        type: String,
+        required: true,
+        trim: true
+      },
+      optionC: {
+        type: String,
+        required: true,
+        trim: true
+      },
+      optionD: {
+        type: String,
+        required: true,
+        trim: true
+      }
+    }],
+    answer: {
+      type: String || Number,
+      required: true,
+      trim: true
+    }
+  }],
   owner: {
     type: mongoose.Schema.Types.ObjectId, // id of the user goes here
     required: true,
