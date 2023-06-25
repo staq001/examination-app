@@ -7,14 +7,6 @@ const auth = require('../middleware/auth')
 
 // // GET METHODS
 // SIGN UP
-router.get('users/signup', (req, res) => {
-  res.render('signup')
-})
-
-// LOG IN
-router.get('/', (req, res) => {
-  res.render('index')
-})
 
 // SERVE USER PROFILE
 router.get('/users/me', auth, async (req, res) => {
@@ -37,7 +29,7 @@ router.post('/users/signup', async (req, res) => {
 })
 
 // LOG IN PAGE
-router.post('/', async (req, res) => {
+router.post('/home', async (req, res) => {
   const hash = req.body
   try {
     const user = await User.findByCredentials(hash.email, hash.password)

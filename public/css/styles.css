@@ -29,6 +29,7 @@ body {
   /* max-width: 130rem; */
   /* margin: 0 auto; */
   height: 100vh;
+  overflow-y: auto;
 }
 
 .grid {
@@ -100,7 +101,10 @@ body {
 }
 
 .cta-header {
-  color: #444;
+  line-height: 1;
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: #228be6;
 }
 
 .cta-flex {
@@ -151,11 +155,11 @@ body {
 
 .cta-form *:focus {
   outline: none;
-  box-shadow: 0 1px 2px #333;
+  box-shadow: 0 0.5px 1px #333;
 }
 
 .btn-login {
-  padding: 1.4rem 25rem;
+  padding: 1.4rem;
   border: none;
   border-radius: 4px;
   color: #fff;
@@ -171,11 +175,126 @@ body {
 }
 
 footer {
-  margin-top: 9.6rem;
+  margin-top: 0rem;
 }
 
 .copyright {
   font-size: 1.4rem;
   line-height: 1.6;
+  margin-bottom: 4rem;
+}
+
+/* /* SIGNUP.HTML  */
+
+.headerr {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  column-gap: 6.4rem;
+  margin: 0 auto;
+  box-shadow: 0 0px 1px #339af0;
+  border-radius: 4px;
+}
+
+.home {
+  margin-right: 4.8rem;
+  margin-left: 6.4rem;
+}
+
+.nav {
+  margin-top: 3.6rem;
+}
+
+.nav-img {
+  /* margin-top: 1.2rem; */
+  margin-left: 1.2rem;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sub-divider {
+  /* border: 1px solid #222; */
+  margin-top: 2.4rem;
+  padding: 1rem 2rem;
+  box-shadow: 0 0px 1px #339af0;
+}
+
+.sign-form {
+  /* margin-top: 20rem; */
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  margin-bottom: 2rem;
+}
+
+.sign-form label {
+  color: rgba(127, 143, 164, 1);
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 500;
   margin-bottom: 1rem;
+}
+
+.sign-form input,
+.sign-form select {
+  width: 55rem;
+  padding: 0.8rem;
+  font-size: 1.6rem;
+  font-family: inherit;
+  color: #222 v;
+  border: 1px solid rgba(127, 143, 164, 0.913);
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+.sign-form *:focus {
+  outline: none;
+  box-shadow: 0 0.5px 1px #333;
+}
+
+.btn-signup {
+  padding: 1rem;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  background-color: #339af0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  cursor: pointer;
+  transform: all 0.3s;
+}
+
+.btn-signup:hover {
+  background-color: #228be6;
+}
+
+.signup-paragraph {
+  line-height: 1;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #339af0;
+}
+
+.icon {
+  color: #339af0;
+  /* size: 4rem; */
+  width: 10rem;
+  height: 10rem;
+}
+
+.ico-p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 3.5rem;
+}
+
+.logo-link {
+  width: 30rem;
+  cursor: pointer;
+  /* padding: 1rem 1rem; */
 }

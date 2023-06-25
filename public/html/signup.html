@@ -1,0 +1,101 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="icon" href="./img/logo-prompt-test.png" />
+    <title>Prompt-test — Test yourself?</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="headerr">
+        <a class="logo-link" href="./index">
+          <img class="nav-img" src="./img/logo-prompt-test-trimmed.png" />
+        </a>
+        <div class="nav">
+          <a href="./index" class="btn home">HOME/LOGIN</a>
+          <a href="" class="btn contact">CONTACT US</a>
+        </div>
+      </div>
+
+      <div class="divider">
+        <div class="sub-divider">
+          <div class="ico-p">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="icon"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            <p class="signup-paragraph">OPEN ACCOUNT</p>
+          </div>
+          <form class="sign-form" action="#">
+            <div>
+              <label for="firstName">First name</label>
+              <input
+                id="firstName"
+                type="text"
+                placeholder="Jack"
+                name="firstName"
+                required
+              />
+            </div>
+            <div>
+              <label for="surname">Surname</label>
+              <input
+                id="surname"
+                type="text"
+                placeholder="Falahee"
+                name="surname"
+                required
+              />
+            </div>
+            <div>
+              <label for="email">Email address</label>
+              <input
+                id="email"
+                type="text"
+                placeholder="me@example.com"
+                name="email"
+                required
+              />
+            </div>
+            <div>
+              <label for="password">Password</label>
+              <input
+                id="password"
+                type="text"
+                placeholder="password"
+                name="password"
+                required
+              />
+            </div>
+
+            <button class="btn-signup">SIGN UP</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- <footer>
+        <p class="copyright">
+          Copyright &copy; 2023 by Prompt-test, Inc. All rights reserved.
+        </p>
+      </footer> -->
+    </div>
+
+    <script src="./js/signup.js"></script>
+  </body>
+</html>
